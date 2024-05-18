@@ -1,6 +1,12 @@
+const LOCAL_STORAGE_KEY = 'tasks';
 function add(newTask) {
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const tasks = getAll();
   tasks.push(newTask);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
 }
-export const localStorageApi = { add };
+
+function getAll() {
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+}
+
+export const localStorageApi = { add, getAll };
