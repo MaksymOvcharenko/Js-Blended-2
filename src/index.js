@@ -14,3 +14,12 @@
  * прибрати завдання зі списку.
  * Список із завданнями має бути доступним після перезавантаження сторінки.
  */
+import { createNewTask } from './js/createNewTask';
+import { localStorageApi } from './js/localStorageApi';
+const formRef = document.querySelector('#task-form');
+
+formRef.addEventListener('submit', event => {
+  event.preventDefault();
+  const newTask = createNewTask();
+  localStorageApi.add(newTask);
+});
