@@ -16,10 +16,21 @@
  */
 import { createNewTask } from './js/createNewTask';
 import { localStorageApi } from './js/localStorageApi';
+import { createTaskMarkup } from './js/createTaskMarkup';
 const formRef = document.querySelector('#task-form');
+const listTaskRef = document.querySelector('#task-list');
 
 formRef.addEventListener('submit', event => {
   event.preventDefault();
   const newTask = createNewTask();
   localStorageApi.add(newTask);
+  const markup = createTaskMarkup(newTask);
+  listTaskRef.insertAdjacentHTML('beforeend', markup)
 });
+
+function renderCards() {
+  const tasks = localStorageApi.getAll();
+  const markup = tasks.map(createTaskMarkup).join("");
+  listTaskRef.insertAdjacentHTML('beforeend', markup);
+}
+renderCards();
