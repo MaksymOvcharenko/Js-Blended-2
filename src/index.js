@@ -25,12 +25,23 @@ formRef.addEventListener('submit', event => {
   const newTask = createNewTask();
   localStorageApi.add(newTask);
   const markup = createTaskMarkup(newTask);
-  listTaskRef.insertAdjacentHTML('beforeend', markup)
+  listTaskRef.insertAdjacentHTML('beforeend', markup);
 });
 
 function renderCards() {
   const tasks = localStorageApi.getAll();
-  const markup = tasks.map(createTaskMarkup).join("");
+  const markup = tasks.map(createTaskMarkup).join('');
   listTaskRef.insertAdjacentHTML('beforeend', markup);
 }
 renderCards();
+
+listTaskRef.addEventListener('click', deleteCard);
+function deleteCard(event) {
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  const id = event.target.dataset.id;
+  localStorageApi.deleteTask(id);
+}
+
+// Видалити картку з DOM-дерева при кліку на delete
